@@ -93,7 +93,7 @@ export default function Countdown() {
               href="/tura-avgust"
               className="w-full text-center px-6 py-3 bg-olive-600 text-white font-semibold rounded-full shadow hover:bg-olive-700 transition-all duration-300 hover:scale-105"
             >
-              Pogledaj turu →
+              Program Putovanja →
             </Link>
           </motion.div>
 
@@ -115,7 +115,7 @@ export default function Countdown() {
               href="/tura-jul"
               className="w-full text-center px-6 py-3 bg-olive-600 text-white font-semibold rounded-full shadow hover:bg-olive-700 transition-all duration-300 hover:scale-105"
             >
-              Pogledaj turu →
+              Program Putovanja →
             </Link>
           </motion.div>
         </div>

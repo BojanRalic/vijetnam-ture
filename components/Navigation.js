@@ -1,35 +1,42 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isProgramOpen, setIsProgramOpen] = useState(false)
+  const dropdownRef = useRef(null)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
+    const handleScroll = () => setIsScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Close mobile menu on resize
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsMobileMenuOpen(false)
-      }
+      if (window.innerWidth >= 768) setIsMobileMenuOpen(false)
     }
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setIsProgramOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
   // Prevent scroll when mobile menu is open (iOS Safari fix)
   useEffect(() => {
     if (isMobileMenuOpen) {
-      // Sačuvaj trenutnu poziciju skrola
       const scrollY = window.scrollY
       document.body.style.position = 'fixed'
       document.body.style.top = `-${scrollY}px`
@@ -37,16 +44,13 @@ export default function Navigation() {
       document.body.style.right = '0'
       document.body.style.overflow = 'hidden'
     } else {
-      // Vrati prethodnu poziciju skrola
       const scrollY = document.body.style.top
       document.body.style.position = ''
       document.body.style.top = ''
       document.body.style.left = ''
       document.body.style.right = ''
       document.body.style.overflow = ''
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1)
-      }
+      if (scrollY) window.scrollTo(0, parseInt(scrollY || '0', 10) * -1)
     }
     return () => {
       document.body.style.position = ''
@@ -62,6 +66,11 @@ export default function Navigation() {
     { href: '/#galerija', label: 'Galerija' },
     { href: '/#cene', label: 'Cene' },
     { href: '/#faq', label: 'FAQ' },
+  ]
+
+  const programLinks = [
+    { href: '/tura-avgust', label: 'Tura Avgust' },
+    { href: '/tura-jul', label: 'Tura Jul' },
   ]
 
   return (
@@ -110,6 +119,54 @@ export default function Navigation() {
                   }`} />
                 </motion.a>
               ))}
+
+              {/* Program Putovanja Dropdown */}
+              <div className="relative" ref={dropdownRef}>
+                <motion.button
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  onClick={() => setIsProgramOpen(!isProgramOpen)}
+                  className={`relative flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors duration-300 group ${
+                    isScrolled ? 'text-olive-700 hover:text-olive-900' : 'text-white hover:text-gold-400'
+                  }`}
+                >
+                  Program Putovanja
+                  <svg
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${isProgramOpen ? 'rotate-180' : ''}`}
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                  <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 group-hover:w-full transition-all duration-300 ${
+                    isScrolled ? 'bg-olive-600' : 'bg-gold-400'
+                  }`} />
+                </motion.button>
+
+                <AnimatePresence>
+                  {isProgramOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-44 bg-white rounded-2xl shadow-xl border border-olive-100 overflow-hidden"
+                    >
+                      {programLinks.map((link) => (
+                        <a
+                          key={link.href}
+                          href={link.href}
+                          onClick={() => setIsProgramOpen(false)}
+                          className="block px-5 py-3 text-sm font-medium text-olive-700 hover:bg-olive-50 hover:text-olive-900 transition-colors"
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
               <motion.a
                 href="https://www.instagram.com/queen.of.compass/"
                 target="_blank"
@@ -175,6 +232,30 @@ export default function Navigation() {
                     {link.label}
                   </motion.a>
                 ))}
+
+                {/* Program Putovanja u mobilnom meniju */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ delay: 0.4 }}
+                  className="flex flex-col items-center gap-3"
+                >
+                  <span className="text-sm font-semibold tracking-wider uppercase text-olive-400">
+                    Program Putovanja
+                  </span>
+                  {programLinks.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-xl font-serif font-medium text-olive-700 hover:text-olive-500 transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </motion.div>
+
                 <motion.a
                   href="https://www.instagram.com/queen.of.compass/"
                   target="_blank"
