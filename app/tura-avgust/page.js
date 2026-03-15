@@ -1,4 +1,5 @@
 import Navigation from '@/components/Navigation'
+import HeroTura from '@/components/HeroTura'
 import Itinerary from '@/components/Itinerary'
 import Footer from '@/components/Footer'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
@@ -13,10 +14,12 @@ export default function TuraAvgust() {
   return (
     <main className="min-h-screen">
       <Navigation />
-      <div className="pt-24 pb-8 bg-olive-50 text-center">
-        <p className="text-olive-600 font-semibold tracking-wider text-sm mb-2">08.04. – 22.04.2026</p>
-        <h1 className="text-3xl md:text-4xl font-serif font-bold text-olive-800">Tura Avgust</h1>
-      </div>
+      <HeroTura
+        tourName="Tura Avgust"
+        dates="08.04. – 22.04.2026"
+        backgroundImage="/images/8-april.webp"
+        description="15 dana. 12 putnika. Dva voditelja koji tamo žive."
+      />
       <Itinerary />
       <Footer />
       <WhatsAppFloat />

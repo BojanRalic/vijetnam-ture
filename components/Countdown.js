@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import Link from 'next/link'
 
 function CountdownTimer({ targetDate }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
@@ -39,8 +38,8 @@ function CountdownTimer({ targetDate }) {
       <div className="flex items-center justify-center gap-4 sm:gap-6 md:gap-8">
         {timeUnits.map((unit) => (
           <div key={unit.label} className="text-center">
-            <div className="bg-olive-600 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 md:px-8 md:py-5 shadow-xl">
-              <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tabular-nums">
+            <div className="bg-olive-600 rounded-2xl px-3 py-3 sm:px-5 sm:py-4 shadow-xl">
+              <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white tabular-nums">
                 00
               </span>
             </div>
@@ -55,8 +54,8 @@ function CountdownTimer({ targetDate }) {
     <div className="flex items-center justify-center gap-4 sm:gap-6 md:gap-8">
       {timeUnits.map((unit) => (
         <div key={unit.label} className="text-center">
-          <div className="bg-olive-600 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 md:px-8 md:py-5 shadow-xl">
-            <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tabular-nums">
+          <div className="bg-olive-600 rounded-2xl px-3 py-3 sm:px-5 sm:py-4 shadow-xl">
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white tabular-nums">
               {String(unit.value).padStart(2, '0')}
             </span>
           </div>
@@ -88,7 +87,7 @@ export default function Countdown() {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 gap-8 max-w-lg mx-auto">
           {/* Tura Avgust */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -103,12 +102,6 @@ export default function Countdown() {
               <h3 className="text-xl font-serif font-bold text-olive-800">Tura Avgust</h3>
             </div>
             <CountdownTimer targetDate="2026-04-08T00:00:00" />
-            <Link
-              href="/tura-avgust"
-              className="inline-block px-8 py-3 bg-olive-600 text-white font-semibold rounded-full shadow hover:bg-olive-700 transition-all duration-300 hover:scale-105"
-            >
-              Plan i program putovanja
-            </Link>
           </motion.div>
 
           {/* Tura Jul */}
@@ -125,12 +118,6 @@ export default function Countdown() {
               <h3 className="text-xl font-serif font-bold text-olive-800">Tura Jul</h3>
             </div>
             <CountdownTimer targetDate="2026-06-05T00:00:00" />
-            <Link
-              href="/tura-jul"
-              className="inline-block px-8 py-3 bg-olive-600 text-white font-semibold rounded-full shadow hover:bg-olive-700 transition-all duration-300 hover:scale-105"
-            >
-              Plan i program putovanja
-            </Link>
           </motion.div>
         </div>
       </div>

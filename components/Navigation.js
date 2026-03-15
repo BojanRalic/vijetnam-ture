@@ -58,11 +58,10 @@ export default function Navigation() {
   }, [isMobileMenuOpen])
 
   const navLinks = [
-    { href: '#o-putovanju', label: 'O Putovanju' },
-    { href: '#itinerar', label: 'Itinerar' },
-    { href: '#galerija', label: 'Galerija' },
-    { href: '#cene', label: 'Cene' },
-    { href: '#faq', label: 'FAQ' },
+    { href: '/#o-putovanju', label: 'O Putovanju' },
+    { href: '/#galerija', label: 'Galerija' },
+    { href: '/#cene', label: 'Cene' },
+    { href: '/#faq', label: 'FAQ' },
   ]
 
   return (
@@ -79,7 +78,7 @@ export default function Navigation() {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <motion.a
-              href="#"
+              href="/"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="flex items-center space-x-2"
