@@ -4,10 +4,11 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { itineraryContent } from '@/content/data'
 
-export default function Itinerary() {
+export default function Itinerary({ data }) {
   let currentSection = null
   const sectionRef = useRef(null)
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
+  const items = data || itineraryContent
 
   return (
     <section id="itinerar" ref={sectionRef} className="bg-white py-20 lg:py-32 overflow-x-hidden">
@@ -34,7 +35,7 @@ export default function Itinerary() {
           <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-olive-200 via-olive-400 to-olive-200" />
 
           <div className="space-y-12 lg:space-y-0">
-            {itineraryContent.map((item, index) => {
+            {items.map((item, index) => {
               const showSectionHeader = item.section && item.section !== currentSection
               if (item.section) currentSection = item.section
 
