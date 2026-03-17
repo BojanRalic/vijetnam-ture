@@ -69,8 +69,8 @@ export default function Navigation() {
   ]
 
   const programLinks = [
-    { href: '/tura-avgust', label: 'Tura Avgust' },
-    { href: '/tura-jul', label: 'Tura Jul' },
+    { href: '/tura-april', label: 'Tura April' },
+    { href: '/tura-jun', label: 'Tura Jun' },
   ]
 
   return (

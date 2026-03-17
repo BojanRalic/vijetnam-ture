@@ -75,7 +75,7 @@ export default function Countdown() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-          {/* Tura Avgust */}
+          {/* Tura April */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -86,18 +86,18 @@ export default function Countdown() {
               <span className="inline-block px-4 py-1.5 bg-olive-600 text-white text-sm font-bold rounded-full mb-3">
                 08.04. – 22.04.2026
               </span>
-              <h3 className="text-xl font-serif font-bold text-olive-800">Tura Avgust</h3>
+              <h3 className="text-xl font-serif font-bold text-olive-800">Tura April</h3>
             </div>
             <CountdownTimer targetDate="2026-04-08T00:00:00" />
             <Link
-              href="/tura-avgust"
+              href="/tura-april"
               className="w-full text-center px-6 py-3 bg-olive-600 text-white font-semibold rounded-full shadow hover:bg-olive-700 transition-all duration-300 hover:scale-105"
             >
               Program Putovanja →
             </Link>
           </motion.div>
 
-          {/* Tura Jul */}
+          {/* Tura Jun */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -108,11 +108,11 @@ export default function Countdown() {
               <span className="inline-block px-4 py-1.5 bg-olive-600 text-white text-sm font-bold rounded-full mb-3">
                 05.06. – 19.06.2026
               </span>
-              <h3 className="text-xl font-serif font-bold text-olive-800">Tura Jul</h3>
+              <h3 className="text-xl font-serif font-bold text-olive-800">Tura Jun</h3>
             </div>
             <CountdownTimer targetDate="2026-06-05T00:00:00" />
             <Link
-              href="/tura-jul"
+              href="/tura-jun"
               className="w-full text-center px-6 py-3 bg-olive-600 text-white font-semibold rounded-full shadow hover:bg-olive-700 transition-all duration-300 hover:scale-105"
             >
               Program Putovanja →

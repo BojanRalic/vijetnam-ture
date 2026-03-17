@@ -4,23 +4,24 @@ import Itinerary from '@/components/Itinerary'
 import Footer from '@/components/Footer'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
 import ScrollToTop from '@/components/ScrollToTop'
+import { itineraryContentJun } from '@/content/data'
 
 export const metadata = {
-  title: 'Tura Avgust – Plan i Program | Queen of Compass',
-  description: '15 dana kroz Vijetnam. Tura Avgust: 08.04. – 22.04.2026. Hanoi, Pu Luong, Tam Coc, Ha Long, Da Nang, Hoi An.',
+  title: 'Tura Jun – Program Putovanja | Queen of Compass',
+  description: '15 dana kroz Vijetnam. Tura Jun: 05.06. – 19.06.2026. Hanoi, Tam Coc, Ha Long, Da Nang, Hue, Hoi An.',
 }
 
-export default function TuraAvgust() {
+export default function TuraJun() {
   return (
     <main className="min-h-screen">
       <Navigation />
       <HeroTura
-        tourName="Tura Avgust"
-        dates="08.04. – 22.04.2026"
-        backgroundImage="/images/8-april.webp"
+        tourName="Tura Jun"
+        dates="05.06. – 19.06.2026"
+        backgroundImage="/images/istrazujemo-1.webp"
         description="15 dana. 12 putnika. Dva voditelja koji tamo žive."
       />
-      <Itinerary />
+      <Itinerary data={itineraryContentJun} />
       <Footer />
       <WhatsAppFloat />
       <ScrollToTop />
