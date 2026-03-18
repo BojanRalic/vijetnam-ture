@@ -1,18 +1,31 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { galleryPageContent } from '@/content/data'
 
-function Lightbox({ image, onClose }) {
+function Lightbox({ index, images, onClose, onPrev, onNext }) {
+  const image = images[index]
+
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === 'ArrowRight') onNext()
+      if (e.key === 'ArrowLeft') onPrev()
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [onNext, onPrev, onClose])
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
-      className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 cursor-zoom-out"
+      className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
     >
+      {/* Close */}
       <button
         onClick={onClose}
         className="absolute top-4 right-4 text-white/80 hover:text-white p-2 z-10"
@@ -23,35 +36,64 @@ function Lightbox({ image, onClose }) {
         </svg>
       </button>
 
-      <motion.img
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        src={image.src}
-        alt={image.alt}
-        className="max-w-full max-h-[90vh] object-contain rounded-lg"
-        onClick={(e) => e.stopPropagation()}
-      />
-
-      <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: 20, opacity: 0 }}
-        transition={{ delay: 0.1 }}
-        className="absolute bottom-8 left-0 right-0 text-center"
+      {/* Prev */}
+      <button
+        onClick={(e) => { e.stopPropagation(); onPrev() }}
+        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white/10 hover:bg-white/25 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-200"
+        aria-label="Prethodna slika"
       >
-        <p className="text-white text-lg font-medium">{image.alt}</p>
-        {image.location && (
-          <p className="text-white/60 text-sm mt-1">{image.location}</p>
-        )}
-      </motion.div>
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      {/* Next */}
+      <button
+        onClick={(e) => { e.stopPropagation(); onNext() }}
+        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white/10 hover:bg-white/25 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-200"
+        aria-label="Naredna slika"
+      >
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      {/* Image */}
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={index}
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.96 }}
+          transition={{ duration: 0.2 }}
+          src={image.src}
+          alt={image.alt}
+          className="max-w-full max-h-[85vh] object-contain rounded-lg"
+          onClick={(e) => e.stopPropagation()}
+        />
+      </AnimatePresence>
+
+      {/* Caption + counter */}
+      <div className="absolute bottom-6 left-0 right-0 text-center pointer-events-none">
+        <p className="text-white text-base font-medium">{image.alt}</p>
+        {image.location && <p className="text-white/60 text-sm mt-1">{image.location}</p>}
+        <p className="text-white/40 text-xs mt-2">{index + 1} / {images.length}</p>
+      </div>
     </motion.div>
   )
 }
 
 export default function GalleryFull() {
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [selectedIndex, setSelectedIndex] = useState(null)
+  const total = galleryPageContent.length
+
+  const handlePrev = useCallback(() => {
+    setSelectedIndex((i) => (i - 1 + total) % total)
+  }, [total])
+
+  const handleNext = useCallback(() => {
+    setSelectedIndex((i) => (i + 1) % total)
+  }, [total])
 
   return (
     <>
@@ -126,7 +168,7 @@ export default function GalleryFull() {
                 className="break-inside-avoid"
               >
                 <button
-                  onClick={() => setSelectedImage(image)}
+                  onClick={() => setSelectedIndex(index)}
                   className="relative group w-full overflow-hidden rounded-2xl cursor-zoom-in"
                 >
                   <img
@@ -156,10 +198,13 @@ export default function GalleryFull() {
 
       {/* Lightbox */}
       <AnimatePresence>
-        {selectedImage && (
+        {selectedIndex !== null && (
           <Lightbox
-            image={selectedImage}
-            onClose={() => setSelectedImage(null)}
+            index={selectedIndex}
+            images={galleryPageContent}
+            onClose={() => setSelectedIndex(null)}
+            onPrev={handlePrev}
+            onNext={handleNext}
           />
         )}
       </AnimatePresence>
