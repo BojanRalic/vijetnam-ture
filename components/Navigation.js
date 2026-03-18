@@ -63,7 +63,7 @@ export default function Navigation() {
 
   const navLinks = [
     { href: '/#o-putovanju', label: 'O Putovanju' },
-    { href: '/#galerija', label: 'Galerija' },
+    { href: '/galerija', label: 'Galerija' },
     { href: '/#cene', label: 'Cene' },
     { href: '/#faq', label: 'FAQ' },
   ]

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { galleryContent } from '@/content/data'
+import { galleryPageContent } from '@/content/data'
 
 function Lightbox({ image, onClose }) {
   return (
@@ -13,7 +13,6 @@ function Lightbox({ image, onClose }) {
       onClick={onClose}
       className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 cursor-zoom-out"
     >
-      {/* Close Button */}
       <button
         onClick={onClose}
         className="absolute top-4 right-4 text-white/80 hover:text-white p-2 z-10"
@@ -24,7 +23,6 @@ function Lightbox({ image, onClose }) {
         </svg>
       </button>
 
-      {/* Image */}
       <motion.img
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -36,7 +34,6 @@ function Lightbox({ image, onClose }) {
         onClick={(e) => e.stopPropagation()}
       />
 
-      {/* Caption */}
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -53,14 +50,56 @@ function Lightbox({ image, onClose }) {
   )
 }
 
-export default function Gallery() {
+export default function GalleryFull() {
   const [selectedImage, setSelectedImage] = useState(null)
 
   return (
     <>
-      <section id="galerija" className="bg-olive-50 py-20 lg:py-32">
+      {/* Hero */}
+      <section className="relative pt-40 pb-20 bg-olive-900 overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url(/images/istrazujemo-1.webp)" }}>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
+        </div>
+        <div className="absolute top-20 left-10 w-32 h-32 border border-white/20 rounded-full" />
+        <div className="absolute bottom-10 right-20 w-48 h-48 border border-gold-400/30 rounded-full" />
+        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <p className="text-white/80 text-sm md:text-base tracking-[0.3em] uppercase mb-4">
+              Queen of Compass · Vijetnam
+            </p>
+            <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6">
+              Galerija
+            </h1>
+            <div className="flex items-center justify-center space-x-4 mb-4">
+              <div className="h-px w-16 bg-white/40" />
+              <p className="text-white text-lg md:text-xl tracking-wider">Trenuci koji ostaju</p>
+              <div className="h-px w-16 bg-white/40" />
+            </div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="text-white/80 text-base md:text-lg mb-8"
+            >
+              Autentični Vijetnam kroz objektiv naših putnika.
+            </motion.p>
+            <a
+              href="/"
+              className="inline-block px-10 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 hover:scale-105"
+            >
+              Nazad na Početnu
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Gallery Grid */}
+      <section className="bg-olive-50 py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -72,19 +111,18 @@ export default function Gallery() {
               TRENUTCI KOJI OSTAJU
             </p>
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-olive-800">
-              Galerija iz Vijetnama
+              Sve fotografije
             </h2>
           </motion.div>
 
-          {/* Masonry Grid */}
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-            {galleryContent.map((image, index) => (
+            {galleryPageContent.map((image, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.6, delay: index * 0.05 }}
+                transition={{ duration: 0.6, delay: (index % 6) * 0.05 }}
                 className="break-inside-avoid"
               >
                 <button
@@ -97,16 +135,13 @@ export default function Gallery() {
                     className="w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
                   />
-                  {/* Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  {/* Caption */}
                   <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                     <p className="text-white font-medium">{image.alt}</p>
                     {image.location && (
                       <p className="text-white/70 text-sm">{image.location}</p>
                     )}
                   </div>
-                  {/* Zoom Icon */}
                   <div className="absolute top-4 right-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
@@ -116,25 +151,6 @@ export default function Gallery() {
               </motion.div>
             ))}
           </div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-center mt-12"
-          >
-            <a
-              href="/galerija"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-olive-600 text-white font-semibold rounded-full shadow-lg hover:bg-olive-700 transition-all duration-300 hover:scale-105"
-            >
-              Pogledaj celu galeriju
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-          </motion.div>
         </div>
       </section>
 
