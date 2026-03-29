@@ -37,7 +37,7 @@ export default function Hero() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-gold-400"></span>
             </span>
             <span className="text-white/90 text-sm font-medium">
-              5 godina u Vijetnamu · 12 putnika max · Luksuzno iskustvo
+              5 godina u Vijetnamu · Luksuzno putovanje · Autentično iskustvo
             </span>
           </motion.div>
 
