@@ -12,7 +12,7 @@ export const metadata = {
     description: 'Fotografije iz Vijetnama — autentični trenuci, prirodne lepote i kulturna blaga koje smo otkrili zajedno.',
     type: 'website',
     locale: 'sr_RS',
-    url: 'https://vietnam-trip-website.vercel.app/galerija',
+    url: 'https://vijetnam-ture.vercel.app/galerija',
     siteName: 'Queen of Compass',
     images: [
       {

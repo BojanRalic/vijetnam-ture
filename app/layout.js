@@ -1,7 +1,7 @@
 import './globals.css'
 
 export const metadata = {
-  metadataBase: new URL('https://vietnam-trip-website.vercel.app'),
+  metadataBase: new URL('https://vijetnam-ture.vercel.app'),
   title: 'Autentični Vijetnam | Luksuzno Putovanje April 2026 | Queen of Compass',
   description: '15 dana kroz pravi Vijetnam. Irena i Bojan, koji žive u Vijetnamu 5 godina, vode vas kroz Hanoi, Ha Long Bay, Hoi An i skrivena mesta koja turisti ne vide. Mala grupa, luksuzni smeštaj, autentično iskustvo. 1890 EUR.',
   keywords: 'vijetnam putovanje, vietnam travel, luksuzno putovanje, hanoi, ha long bay, hoi an, da nang, pu luong, autentično putovanje, queen of compass, grupno putovanje vijetnam',
@@ -15,7 +15,7 @@ export const metadata = {
     description: '5 godina života u Vijetnamu. Sada delimo naš drugi dom sa vama. Mala grupa, luksuzni smeštaj, autentična iskustva koja turisti ne vide.',
     type: 'website',
     locale: 'sr_RS',
-    url: 'https://vietnam-trip-website.vercel.app',
+    url: 'https://vijetnam-ture.vercel.app',
     siteName: 'Queen of Compass',
     images: [
       {
@@ -65,7 +65,7 @@ const jsonLd = {
   provider: {
     '@type': 'TravelAgency',
     name: 'Queen of Compass',
-    url: 'https://vietnam-trip-website.vercel.app',
+    url: 'https://vijetnam-ture.vercel.app',
   },
 }
 

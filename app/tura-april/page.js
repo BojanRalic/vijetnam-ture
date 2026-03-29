@@ -13,7 +13,7 @@ export const metadata = {
     description: '15 dana kroz pravi Vijetnam. 08.04. – 22.04.2026. Hanoi, Pu Luong, Ha Long Bay, Da Nang, Hoi An.',
     type: 'website',
     locale: 'sr_RS',
-    url: 'https://vietnam-trip-website.vercel.app/tura-april',
+    url: 'https://vijetnam-ture.vercel.app/tura-april',
     siteName: 'Queen of Compass',
     images: [
       {

@@ -14,7 +14,7 @@ export const metadata = {
     description: '15 dana kroz pravi Vijetnam. 05.06. – 19.06.2026. Hanoi, Tam Coc, Ha Long Bay, Da Nang, Hue, Hoi An.',
     type: 'website',
     locale: 'sr_RS',
-    url: 'https://vietnam-trip-website.vercel.app/tura-jun',
+    url: 'https://vijetnam-ture.vercel.app/tura-jun',
     siteName: 'Queen of Compass',
     images: [
       {
